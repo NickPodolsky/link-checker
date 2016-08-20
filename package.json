@@ -1,0 +1,30 @@
+{
+  "name": "url-checker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nick Podolsky",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.1.1",
+    "body-parser": "^1.14.2",
+    "broken-link-checker": "^0.7.3",
+    "cheerio": "^0.20.0",
+    "express": "^4.13.3",
+    "fs-extra": "^0.26.4",
+    "htmltidy": "0.0.6",
+    "mkdirp": "^0.5.1",
+    "mongoose": "^4.5.8",
+    "needle": "^1.1.0",
+    "parse5": "^2.2.0",
+    "socket.io": "^1.4.4",
+    "socket.io-client": "^1.4.4",
+    "uuid": "^2.0.1",
+    "winston": "^2.1.1",
+    "xmldoc": "^0.5.1",
+    "xmlserializer": "^0.4.0"
+  }
+}

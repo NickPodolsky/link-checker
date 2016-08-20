@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Check links on site</title>
+
+        <!-- Page style -->
+        <link rel="stylesheet" href="css/style.css"/>
+
+    </head>
+    <body ng-app="form.app" ng-controller="form.ctrl">
+        <div id="wrap">
+            <div id="content">
+
+                <form id="sign-in" class="active">
+
+                    <h1 class="header">Give us a link</h1>
+                    <h3 class="subheader">and we'll be happy to check it out</h3>
+
+                    <h3 ng-show="response != '' " ng-cloak>{{response}}</h3>
+
+                    <input ng-model="form.url" type="text" placeholder="Url"/>
+
+                    <input ng-click="sendForm()" id="submit" type="submit" value="Check"/>
+
+                </form>
+
+
+
+            </div>
+
+
+
+        </div>
+
+        <!-- REQUIRED JS SCRIPTS -->
+
+        <!-- jQuery -->
+        <script src="vendor/jquery/dist/jquery.min.js"></script>
+
+        <!-- Angular, AngularPlugins -->
+        <script src="vendor/angular/angular.min.js"></script>
+        <script src="vendor/angular-file-upload/dist/angular-file-upload.min.js"></script>
+
+        <!-- Socket.io -->
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="vendor/angular-socket-io/socket.min.js"></script>
+
+
+        <!-- App -->
+        <script src="app/form.app.js"></script>
+
+        <!-- App controllers -->
+        <script src="app/form.ctrl.js"></script>
+
+        <!-- App services -->
+        <script src="app/common/littleHelpers/httpErrorsCatcher.js"></script>
+        <script src="app/common/services/apiApp.js"></script>
+
+    </body>
+</html>

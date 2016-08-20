@@ -1,0 +1,27 @@
+{
+  "name": "form-frontend",
+  "description": "",
+  "main": "js/app.js",
+  "moduleType": [],
+  "authors": [
+    "Nick Podolsky"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "angular": "~1.4.7",
+    "angular-ui-router": "~0.2.15",
+    "angular-file-upload": "~2.2.0",
+    "angular-socket-io": "~0.7.0"
+  }
+}
