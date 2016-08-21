@@ -21,6 +21,7 @@ var controller = function(MongoDB){
                 return response.send(task.id);
             })
             .then(function(){                                       // get site body
+                Events.emit('status', task.id, "Loading the requested page");
                 return HttpQuery.getAsync(task.requestedSiteUrl, {
                     follow_max         : 5,                         // follow up to five redirects
                     rejectUnauthorized : true                       // verify SSL certificate
@@ -36,6 +37,7 @@ var controller = function(MongoDB){
                     .then(function(updatedTask){task = updatedTask;});
             })
             .then(function(){                                       // extract url's from page
+                Events.emit('status', task.id, "Parsing the requested page");
                 var extractor = new LinkExtractor(task.destinationSiteUrl, task.pageBody);
                 return extractor.extract();
             })
@@ -49,24 +51,29 @@ var controller = function(MongoDB){
                     .then(function(updatedTask){task = updatedTask;});
             })
             .then(function(){
-                var urlChecker = new BLC.UrlChecker({}, {
-                    link: processCheckResult,
-                    end: function(){}
-                });
+                Events.emit('status', task.id, "Checking links");
+                var urlChecker = new BLC.UrlChecker(
+                    {
+                        requestMethod: 'get',
+                        cacheResponses: false
+                    },
+                    {
+                        link:   processCheckResult,
+                        end:    function(){processCheckEnd(task.id);}
+                    }
+                );
 
                 task.links.forEach(function(link, index){
                     urlChecker.enqueue(link.url, '', {taskId: task._id, linkIndex: index});
                 },this);
 
 
-                console.log('Task ' + task._id + ' added to queue');
+                //console.log('Task ' + task._id + ' added to queue');
             });
     };
 
     var processCheckResult = function(result, data){
-        //console.log(result);
         var httpCode = (result.http.response !== null) ? result.http.response.statusCode : null;
-        console.log(httpCode);
         var linkField = {};
             linkField["links."+data.linkIndex+".httpCode"]  = httpCode;
             linkField["links."+data.linkIndex+".broken"]    = result.broken;
@@ -78,7 +85,16 @@ var controller = function(MongoDB){
                 $inc: resultField
             },
             {new: true})
-            .catch(function(e){console.log(e);});
+            .then(function(updatedTask){
+                Events.emit('progress', updatedTask.id, updatedTask.result, updatedTask.links[data.linkIndex]);
+            });
+    };
+
+    var processCheckEnd = function(taskId){
+        return MongoDB.task.findOne({_id: taskId}).then(function(task){
+            Events.emit('result', task.id, task.result, task.links);
+            Events.emit('status', task.id, "Link checking finished");
+        });
     };
 
 

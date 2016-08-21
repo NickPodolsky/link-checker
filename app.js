@@ -21,6 +21,10 @@ Router.get('/', function(request, response){
 //
 Router.post('/check', JsonParser, Controllers.task.run);
 
+Controllers.task.events.on('progress', SocketIo.updateProgress);
+Controllers.task.events.on('status', SocketIo.updateStatus);
+Controllers.task.events.on('result', SocketIo.sendResult);
+
 
 
 Server.run(Router);

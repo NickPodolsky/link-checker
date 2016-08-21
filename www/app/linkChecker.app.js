@@ -3,10 +3,10 @@ angular.module('app.controllers', []);  // объявляем модуль-ко�
 angular.module('app.routes', []); // объявляем модуль-контейнер содержащий пути к элементам приложения
 
 // ПРИЛОЖЕНИЕ
-angular.module('form.app',[
+angular.module('linkChecker.app',[
 
-    'angularFileUpload',
     'btford.socket-io',
+    'ui.router',
     
     //'app.config.$appConfig',        // общие параметры приложения,
     
@@ -34,8 +34,30 @@ angular.module('form.app',[
 }])
 
 // Socket.io ==============================================================================================
-.factory('$socketIoSpectatorsCounter', function (socketFactory) {
-    return socketFactory({
-        ioSocket: io.connect('/spectators-counter', {transports:['websocket']})
-    });
+.factory('$socketIoConnectToRoom', function (socketFactory) {
+    return function(room) {
+        this.room = room;
+        console.log(this.room);
+        return socketFactory({
+            ioSocket: io.connect('/'+this.room, {transports: ['websocket']})
+        });
+    };
+})
+
+// Маршрутизация ==========================================================================================
+.config(function($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/');
+    $stateProvider
+        .state('main', {
+            url: '/',
+            templateUrl: 'app/pages/main/main.html',
+            controller: 'main.ctrl'
+        })
+        .state('progress', {
+            url: '/progress',
+            params: {taskId: null},
+            templateUrl: 'app/pages/progress/progress.html',
+            controller: 'progress.ctrl',
+            onEnter: function($state, $stateParams){if($stateParams.taskId === null){$state.go('main');}}
+        });
 });

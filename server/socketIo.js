@@ -1,17 +1,26 @@
 var Server  = require('./server.js');
 var Io      = Server.socketIoServer;
 
-var _spectators = 0;
-
-Io.newSpectator = function(){
-    Io.of('/spectators-counter').emit('counter', ++_spectators);
-    console.log(_spectators);
+Io.updateProgress = function(taskId, total, item){
+    Io.of('/'+taskId).emit('progress', {
+       total: total,
+       item: item
+    });
+};
+Io.updateStatus = function(taskId, status){
+    Io.of('/'+taskId).emit('status', status);
+};
+Io.sendResult = function(taskId, total, items){
+    Io.of('/'+taskId).emit('result', {
+        total: total,
+        items: items
+    });
 };
 
 // PUBLISHING QUEUE
-Io.of('/spectators-counter').on('connection', function(socket){
+Io.of('/init').on('connection', function(socket){
     // When somebody connect to this namespace sending current counter
-    socket.emit('counter', _spectators);
+    socket.emit('counter', 0);
 });
 
 module.exports = Io;

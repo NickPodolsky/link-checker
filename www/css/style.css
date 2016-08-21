@@ -135,62 +135,32 @@ a:hover {
  margin-top: 2em;
 }
 
-#uploader {
-    width: 100%;
-    margin-top: 1em;
-    height: 50px;
-}
-
-#upload-zone {
-    height:100%;
-    padding-top: 1em;
-    background-color: transparent;
-    background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255,255,255,.1) 5px, rgba(255,255,255,.1) 10px);
-}
-
-#upload-zone div,a {
-    color: #fff;
-    opacity: .66;
-}
-
-#upload-zone a {
-    display: inline-block;
-    border-bottom: 1px dashed white;
-}
-#upload-zone a:hover {
-    text-decoration: none;
-    border-bottom: 1px solid white;
-    opacity: 1;
-}
-
-#upload-list {
-    height: 100%;
-    width: 100%;
-}
-
-#upload-list-item {
-    display: table;
-    height: 100%;
-    width: 100%;
-    vertical-align: middle;
-    text-align: left;
-}
-#upload-list-item-icon {
-    display: table-cell;
-    padding-right: 0.5em;
-    opacity: .66;
-}
-#upload-list-item-icon img {
-    vertical-align: middle;
-}
-#upload-list-item-file{
-    display: table-cell;
-    width: 80%;
-}
-#upload-list-item-remove {
-    display: table-cell;
-}
-
 .hidden {
     display: none;
 }
+
+.linkContainer {
+    height: 200px;
+    max-height: 200px;
+    overflow: auto;
+    margin-bottom: 1em;
+}
+.item {
+    margin-bottom: 0.3em;
+    padding: 0.1em;
+    text-align: left;
+}
+.item>div {
+    margin: 0;
+    margin-bottom: 0.1em;
+}
+
+.brokenLinks .item{
+    background-color: #ff00c4;
+}
+.goodLinks .item{
+    background-color: #0091ff;
+}
+
+
+

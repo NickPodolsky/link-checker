@@ -1,0 +1,27 @@
+<a ui-sref="main">Back to form</a>
+
+<h1 class="header">Thanks!</h1>
+<h3 class="subheader">{{status}}</h3>
+<h3>total: {{result.total}}, checked: {{result.percent}}%, broken: {{result.broken}}</h3>
+
+<div class="linkContainer goodLinks">
+    <div class="item"  ng-repeat="item in goodLinks">
+        <div>{{item.rawUrl}} ({{item.xpath}})</div>
+        <div>
+            <span>line: {{item.position.line}}, column: {{item.position.column}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="linkContainer brokenLinks">
+    <div class="item" ng-repeat="item in brokenLinks">
+        <div>http code: {{item.httpCode}}</div>
+        <div>url: {{item.rawUrl}} ({{item.xpath}})</div>
+        <div>resolvedUrl: {{item.url}}</div>
+        <div>
+            <span>line: {{item.position.line}}, column: {{item.position.column}}</span>
+        </div>
+    </div>
+</div>
+
+

@@ -2,7 +2,7 @@ var express         = require('express');
 var bodyParser      = require('body-parser');
 var config          = require('../config/config.js');
 
-var port            = process.env.PORT || config.port; // App port
+var port            = process.env.PORT || config.port;              // App port
 
 var expressApp      = express();
 var httpServer      = require('http').createServer(expressApp);     // create http server based on express app

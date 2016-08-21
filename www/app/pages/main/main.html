@@ -1,0 +1,13 @@
+
+<form id="sign-in" class="active">
+
+    <h1 class="header">Give us a link</h1>
+    <h3 class="subheader">and we'll be happy to check it out</h3>
+
+    <h3 ng-show="response != '' " ng-cloak>{{response}}</h3>
+
+    <input ng-model="form.url" type="text" placeholder="Url"/>
+
+    <input ng-click="sendForm()" id="submit" type="submit" value="Check"/>
+
+</form>
